@@ -43,4 +43,5 @@ luac.out
 *.swp
 
 # opm
-lua-resty-ga-*
+lua-resty-ga-*/
+*.tar.gz
