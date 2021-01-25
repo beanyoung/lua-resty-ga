@@ -7,6 +7,10 @@ Send nginx/openresty access log to Google Analytics.
 This library is used in [PoweredBy.Cloud](https://poweredby.cloud), 
 but you should test it in your system before onboarding.
 
+# Requires
+
+ledgetech/lua-resty-http >= 0.14
+
 # Usage
 
 ```
