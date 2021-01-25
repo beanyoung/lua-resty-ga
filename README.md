@@ -11,6 +11,19 @@ but you should test it in your system before onboarding.
 
 ledgetech/lua-resty-http >= 0.14
 
+# Install
+
+```
+luarocks install lua-resty-ga
+```
+
+or
+
+```
+opm get BeanYoung/lua-resty-ga
+```
+
+
 # Usage
 
 ```
