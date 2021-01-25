@@ -89,13 +89,13 @@ Custom dimensions and custom metrics must be created in google analytics's admin
 Also custom dimensions and custom metrics must be created in the following order:
 
 | Custom dimensions | Index | Scope |
-------------------------------------
+|-------------------|-------|-------|
 |       Status Code |     1 |   HIT |
 |      Content Type |     2 |   HIT |
 |      Cache Status |     3 |   HIT |
 
 | Custom metrics | Index | Scope | Format Type |
------------------------------------------------
+|----------------|-------|-------|-------------|
 | Content Length |     1 |   HIT |     Integer |
 |  Response Time |     2 |   HIT |     Integer |
 
