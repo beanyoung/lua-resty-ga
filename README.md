@@ -77,7 +77,7 @@ Collect current request's log and push to cache.
 It's better to call this method during log phase[`log_by_lua_*`](https://github.com/openresty/lua-nginx-module#log_by_lua).
 
 `tid` is your google analytics tracking id. 
-Please be aware that this id is a Universal Analytics property rather than a Google Analytics 4 property. 
+Please be aware that this is a Universal Analytics property rather than a Google Analytics 4 property. 
 Follow this [link](https://support.google.com/analytics/answer/10269537) to create a tracking id.
 
 `cid` is google analytics [client id](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#cid). 
