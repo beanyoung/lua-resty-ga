@@ -94,7 +94,11 @@ function _M.collect(tid, cid, uip)
 end
 
 
-function _M.send()
+function _M.send(premature)
+    if premature then
+        return
+    end
+
     while true do
         local tids = ga_cache:get_keys(0)
         if not tids then
