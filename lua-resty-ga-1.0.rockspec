@@ -1,5 +1,5 @@
 package = "lua-resty-ga"
-version = "1.0"
+version = "1.0-0"
 source = {
   url = "git://github.com/beanyoung/lua-resty-ga",
   tag = "v1.0"
