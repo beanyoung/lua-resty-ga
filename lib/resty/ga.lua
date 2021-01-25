@@ -106,6 +106,7 @@ function _M.send(premature)
         if not tids then
             break
         end
+        local continue = false
         for _, tid in ipairs(tids) do
             ngx.update_time()
             local hits = {}
@@ -116,6 +117,11 @@ function _M.send(premature)
                 if not encoded_hit then
                     break
                 end
+
+                if i == 20 then
+                    continue = true
+                end
+
                 local hit, err = cjson.decode(encoded_hit)
                 if hit then
                     hit['qt'] = math.floor(
@@ -128,6 +134,10 @@ function _M.send(premature)
             if not table_isempty(hits) then
                 send_hits(hits)
             end
+        end
+
+        if not continue then
+            break
         end
     end
 end
