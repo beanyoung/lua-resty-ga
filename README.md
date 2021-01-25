@@ -73,7 +73,7 @@ server {
 
 `syntax: ga.collect(tid, cid, uip, send_cd_and_cm)`
 
-Collect current request's log and send to cache.
+Collect current request's log and push to cache.
 It's better to call this method during log phase[`log_by_lua_*`](https://github.com/openresty/lua-nginx-module#log_by_lua).
 
 `tid` is your google analytics tracking id. 
@@ -88,13 +88,13 @@ Follow this [link](https://support.google.com/analytics/answer/10269537) to crea
 Custom dimensions and custom metrics must be created in google analytics's admin dashboard before setting this parameter to `true`.
 Also custom dimensions and custom metrics must be created in the following order:
 
-| Custom dimensions | Index | Scope |
+| Custom Dimensions | Index | Scope |
 |-------------------|-------|-------|
 |       Status Code |     1 |   HIT |
 |      Content Type |     2 |   HIT |
 |      Cache Status |     3 |   HIT |
 
-| Custom metrics | Index | Scope | Format Type |
+| Custom Metrics | Index | Scope | Format Type |
 |----------------|-------|-------|-------------|
 | Content Length |     1 |   HIT |     Integer |
 |  Response Time |     2 |   HIT |     Integer |
@@ -103,3 +103,10 @@ Also custom dimensions and custom metrics must be created in the following order
 ## send
 
 `syntax: ga.send(premature)`
+
+Pop all request logs and send to google analytics server.
+It's better to use timer to call this method in [privileged agent](https://github.com/openresty/lua-resty-core/blob/master/lib/ngx/process.md#enable_privileged_agent) every 1s.
+
+# Author
+
+Bingyu Chen [BeanYoung](mailto:beanyoungcn@gmail.com).
