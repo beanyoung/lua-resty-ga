@@ -25,7 +25,7 @@ local function send_hits(hits)
     end
 
     local httpc = http.new()
-    local api = 'http://www.google-analytics.com/batch'
+    local api = 'https://www.google-analytics.com/batch'
     local option = {
         method = 'POST',
         body = table.concat(payloads, '\r\n'),
@@ -39,7 +39,7 @@ local function send_hits(hits)
 end
 
 
-function _M.collect(tid, cid, uip)
+function _M.collect(tid, cid, uip, send_cd_and_cm)
     ngx.update_time()
     local now = ngx.now()
 
@@ -71,17 +71,19 @@ function _M.collect(tid, cid, uip)
         end
     end
 
-    -- content length
-    hit['cm1'] = ngx.header.content_length
-    -- response time
-    hit['cm2'] = math.floor((now - ngx.req.start_time()) * 1000 + 0.5)
+    if send_cd_and_cm then
+        -- content length
+        hit['cm1'] = ngx.header.content_length
+        -- response time
+        hit['cm2'] = math.floor((now - ngx.req.start_time()) * 1000 + 0.5)
 
-    -- http status
-    hit['cd1'] = ngx.status
-    -- content type
-    hit['cd2'] = ngx.header.content_type
-    -- cache hit status
-    hit['cd3'] = ngx.var.upstream_cache_status
+        -- http status
+        hit['cd1'] = ngx.status
+        -- content type
+        hit['cd2'] = ngx.header.content_type
+        -- cache hit status
+        hit['cd3'] = ngx.var.upstream_cache_status
+    end
 
     hit['created_at'] = now
 
@@ -105,19 +107,21 @@ function _M.send(premature)
             break
         end
         for _, tid in ipairs(tids) do
+            ngx.update_time()
             local hits = {}
             local now = ngx.now()
 
             for i = 1, 20, 1 do
                 local encoded_hit, err = ga_cache:lpop(tid)
-                if encoded_hit then
-                    local hit, err = cjson.decode(encoded_hit)
-                    if hit then
-                        hit['qt'] = math.floor(
-                            (now - hit['created_at']) * 1000 + 0.5)
-                        hit['created_at'] = nil
-                        table.insert(hits, hit)
-                    end
+                if not encoded_hit then
+                    break
+                end
+                local hit, err = cjson.decode(encoded_hit)
+                if hit then
+                    hit['qt'] = math.floor(
+                        (now - hit['created_at']) * 1000 + 0.5)
+                    hit['created_at'] = nil
+                    table.insert(hits, hit)
                 end
             end
 
