@@ -83,6 +83,8 @@ function _M.collect(tid, cid, uip, send_cd_and_cm)
         hit['cd2'] = ngx.header.content_type
         -- cache hit status
         hit['cd3'] = ngx.var.upstream_cache_status
+        -- method
+        hit['cd4'] = ngx.req.get_method()
     end
 
     hit['created_at'] = now
