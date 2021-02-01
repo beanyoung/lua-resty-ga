@@ -110,6 +110,7 @@ Also custom dimensions and custom metrics must be created in the following order
 |       Status Code |     1 |   HIT |
 |      Content Type |     2 |   HIT |
 |      Cache Status |     3 |   HIT |
+|       Http Method |     3 |   HIT |
 
 | Custom Metrics | Index | Scope | Format Type |
 |----------------|-------|-------|-------------|
