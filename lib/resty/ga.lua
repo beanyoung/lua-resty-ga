@@ -91,7 +91,7 @@ function _M.collect(tid, cid, uip, send_cd_and_cm)
 
     local encoded_hit, err = cjson.encode(hit)
     if not encoded_hit then
-        ngx.log(ng.ERR, string.format('failed to encode hit: %s', err))
+        ngx.log(ngx.ERR, string.format('failed to encode hit: %s', err))
         return nil, 'failed to create encoded hit'
     end
     ga_cache:rpush(tid, encoded_hit)
@@ -108,11 +108,14 @@ function _M.send(premature)
         if not tids then
             break
         end
+
         local continue = false
+
         for _, tid in ipairs(tids) do
             ngx.update_time()
-            local hits = {}
             local now = ngx.now()
+
+            local hits = {}
 
             for i = 1, 20, 1 do
                 local encoded_hit, err = ga_cache:lpop(tid)
