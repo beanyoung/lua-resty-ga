@@ -1,8 +1,8 @@
 package = "lua-resty-ga"
-version = "1.2-0"
+version = "1.3-0"
 source = {
   url = "git://github.com/beanyoung/lua-resty-ga",
-  tag = "v1.2"
+  tag = "v1.3"
 }
 description = {
   summary = "Send nginx/openresty access log to Google Analytics.",
